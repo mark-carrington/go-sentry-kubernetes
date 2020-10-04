@@ -90,6 +90,9 @@ func handleEvent(_, obj interface{}) {
 
 	for _, status := range statuses {
 		if status.LastTerminationState != (api.ContainerState{}) {
+
+			fmt.Println(fmt.Sprintf(">>> status.LastTerminationState: %s\n", status.LastTerminationState))
+
 			exitCode := status.LastTerminationState.Terminated.ExitCode
 			codeStr := fmt.Sprintf("%d", exitCode)
 			containerMessage := ""
@@ -115,6 +118,10 @@ func handleEvent(_, obj interface{}) {
 				containerReason = containerMessage
 				containerMessage = fmt.Sprintf("Pod: %s %s", pod.ObjectMeta.Name, "OOMKilled")
 			}
+
+			fmt.Println(fmt.Sprintf(">>> containerReason: %s\n", containerReason))
+			fmt.Println(fmt.Sprintf(">>> containerMessage: %s\n", containerMessage))
+
 			evt := sentry.NewEvent()
 			evt.Message = containerMessage
 			evt.Release = status.Image
