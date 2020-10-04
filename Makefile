@@ -1,6 +1,6 @@
 VERSION=$(shell git describe --always --long --tags)
 GOBUILD=go build .
-DOCKER_USER=stevelacy
+DOCKER_USER=markc83
 NAME=go-sentry-kubernetes
 IMAGE=$(DOCKER_USER)/$(NAME):$(VERSION)
 LATEST=$(DOCKER_USER)/$(NAME):latest
